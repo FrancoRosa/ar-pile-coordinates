@@ -191,7 +191,9 @@ function App() {
         {"id" in target ? (
           <div>
             <p className="m-1">Pile Selected</p>
-            <button onClick={handleRemove}>Delete</button>
+            <button className="m-1" onClick={handleRemove}>
+              Delete
+            </button>
           </div>
         ) : (
           <p className="m-1">No pile selected</p>
