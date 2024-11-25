@@ -37,13 +37,13 @@ function App() {
   };
 
   const handleAddPoint = async () => {
-    const { lng, lat } = newTarget;
+    const { lon, lat } = newTarget;
 
     setLoading(true);
-    const id = await addStickLocation(lat, lng);
+    const id = await addStickLocation(lat, lon);
 
     if (id) {
-      setResponse((s) => [...s, { id, lat, lng }]);
+      setResponse((s) => [...s, { id, lat, lon }]);
       setNewTarget({});
     }
     setLoading(false);
@@ -51,8 +51,8 @@ function App() {
 
   const handleClick = (e) => {
     setTarget({});
-    const [lng, lat] = e.coordinate;
-    setNewTarget({ lng, lat });
+    const [lon, lat] = e.coordinate;
+    setNewTarget({ lon, lat });
   };
 
   const handleRemove = async () => {
@@ -97,7 +97,7 @@ function App() {
         <ScatterplotLayer
           id="route-points"
           data={response}
-          getPosition={(d) => [d.lng, d.lat]}
+          getPosition={(d) => [d.lon, d.lat]}
           getRadius={1}
           getFillColor={[255, 140, 0]}
           getLineColor={[255, 255, 255]}
@@ -119,7 +119,7 @@ function App() {
         <ScatterplotLayer
           id="target-points"
           data={[target]}
-          getPosition={(d) => [d.lng, d.lat]}
+          getPosition={(d) => [d.lon, d.lat]}
           getRadius={1}
           getFillColor={[10, 140, 0]}
           getLineColor={[10, 100, 25]}
@@ -132,7 +132,7 @@ function App() {
         <ScatterplotLayer
           id="new-point"
           data={[newTarget]}
-          getPosition={(d) => [d.lng, d.lat]}
+          getPosition={(d) => [d.lon, d.lat]}
           getRadius={1}
           getFillColor={[100, 140, 0]}
           getLineColor={[100, 100, 255]}
@@ -197,7 +197,7 @@ function App() {
           <p className="m-1">No pile selected</p>
         )}
 
-        {"lng" in newTarget && (
+        {"lon" in newTarget && (
           <button className="m-1" onClick={handleAddPoint}>
             Add point
           </button>

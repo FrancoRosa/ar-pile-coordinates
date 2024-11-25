@@ -12,10 +12,10 @@ import { initializeApp } from "firebase/app";
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 
-export const addStickLocation = async (lat, lng) => {
+export const addStickLocation = async (lat, lon) => {
   const stickLocationCollectionRef = collection(db, "stick-location");
   try {
-    const docRef = await addDoc(stickLocationCollectionRef, { lat, lng });
+    const docRef = await addDoc(stickLocationCollectionRef, { lat, lon });
     return docRef.id;
   } catch (error) {
     console.error("Error adding document: ", error);
