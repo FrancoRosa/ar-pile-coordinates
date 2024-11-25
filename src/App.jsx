@@ -37,7 +37,7 @@ function App() {
   };
 
   const handleAddPoint = async () => {
-    const { lon, lat } = newTarget;
+    const { lng, lat } = newTarget;
 
     setLoading(true);
     const id = await addStickLocation(lat, lon);
@@ -51,8 +51,8 @@ function App() {
 
   const handleClick = (e) => {
     setTarget({});
-    const [lon, lat] = e.coordinate;
-    setNewTarget({ lon, lat });
+    const [lng, lat] = e.coordinate;
+    setNewTarget({ lng, lat });
   };
 
   const handleRemove = async () => {
@@ -69,6 +69,7 @@ function App() {
     setLoading(true);
     const data = await getStickLocations();
     setResponse(data);
+    console.log(data);
     setLoading(false);
   };
 
@@ -96,7 +97,7 @@ function App() {
         <ScatterplotLayer
           id="route-points"
           data={response}
-          getPosition={(d) => [d.lon, d.lat]}
+          getPosition={(d) => [d.lng, d.lat]}
           getRadius={1}
           getFillColor={[255, 140, 0]}
           getLineColor={[255, 255, 255]}
@@ -118,7 +119,7 @@ function App() {
         <ScatterplotLayer
           id="target-points"
           data={[target]}
-          getPosition={(d) => [d.lon, d.lat]}
+          getPosition={(d) => [d.lng, d.lat]}
           getRadius={1}
           getFillColor={[10, 140, 0]}
           getLineColor={[10, 100, 25]}
@@ -131,7 +132,7 @@ function App() {
         <ScatterplotLayer
           id="new-point"
           data={[newTarget]}
-          getPosition={(d) => [d.lon, d.lat]}
+          getPosition={(d) => [d.lng, d.lat]}
           getRadius={1}
           getFillColor={[100, 140, 0]}
           getLineColor={[100, 100, 255]}
