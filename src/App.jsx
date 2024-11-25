@@ -40,10 +40,10 @@ function App() {
     const { lng, lat } = newTarget;
 
     setLoading(true);
-    const id = await addStickLocation(lat, lon);
+    const id = await addStickLocation(lat, lng);
 
     if (id) {
-      setResponse((s) => [...s, { id, lat, lon }]);
+      setResponse((s) => [...s, { id, lat, lng }]);
       setNewTarget({});
     }
     setLoading(false);
@@ -197,7 +197,7 @@ function App() {
           <p className="m-1">No pile selected</p>
         )}
 
-        {"lon" in newTarget && (
+        {"lng" in newTarget && (
           <button className="m-1" onClick={handleAddPoint}>
             Add point
           </button>
