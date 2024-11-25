@@ -16,7 +16,6 @@ export const addStickLocation = async (lat, lng) => {
   const stickLocationCollectionRef = collection(db, "stick-location");
   try {
     const docRef = await addDoc(stickLocationCollectionRef, { lat, lng });
-    console.log("Document written with ID: ");
     return docRef.id;
   } catch (error) {
     console.error("Error adding document: ", error);
