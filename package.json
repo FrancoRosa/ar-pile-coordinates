@@ -2,7 +2,7 @@
   "name": "ar-pile-coordinates",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://francorosa.github.io/ar-pile-coordinates",
+  "homepage": "https://francorosa.github.io/ar-pile-coordinates/",
   "type": "module",
   "scripts": {
     "dev": "vite",
