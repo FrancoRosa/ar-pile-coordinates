@@ -28,6 +28,7 @@ const styles = [
 function App() {
   const [response, setResponse] = useState([]);
   const [target, setTarget] = useState({});
+  const [userLoc, setUserLoc] = useState({});
   const [newTarget, setNewTarget] = useState({});
   const [loading, setLoading] = useState(false);
   const [style, setStyle] = useLocalStorage("style", 0);
@@ -69,12 +70,32 @@ function App() {
     setLoading(true);
     const data = await getStickLocations();
     setResponse(data);
-    console.log(data);
     setLoading(false);
   };
 
   useEffect(() => {
+    const updateUserLoc = () => {
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          const {
+            latitude: lat,
+            longitude: lon,
+            altitude,
+            accuracy,
+            heading,
+            speed,
+          } = position.coords;
+          setUserLoc({ lat, lon, altitude, accuracy, heading, speed });
+        });
+      }
+    };
+    const posTimer = setInterval(() => {
+      updateUserLoc();
+    }, 1000);
     handleFetch();
+    return () => {
+      clearInterval(posTimer);
+    };
   }, []);
 
   return (
@@ -108,7 +129,6 @@ function App() {
           highlightColor={[255, 0, 0, 100]}
           pickable
           onClick={(e) => {
-            console.log(e.object);
             setTimeout(() => {
               setTarget(e.object);
               setNewTarget({});
@@ -123,6 +143,19 @@ function App() {
           getRadius={1}
           getFillColor={[10, 140, 0]}
           getLineColor={[10, 100, 25]}
+          getLineWidth={10}
+          stroked
+          radiusMinPixels={10}
+          autoHighlight={true}
+        />
+
+        <ScatterplotLayer
+          id="user-location"
+          data={[userLoc]}
+          getPosition={(d) => [d.lon, d.lat]}
+          getRadius={1}
+          getFillColor={[10, 200, 0, 100]}
+          getLineColor={[10, 50, 25, 100]}
           getLineWidth={0.5}
           stroked
           radiusMinPixels={10}
@@ -183,6 +216,11 @@ function App() {
           borderRadius: "0.5em",
         }}
       >
+        <p className="m-1">Accuracy: {userLoc.accuracy}</p>
+        <p className="m-1">Speed: {userLoc.speed}</p>
+        <p className="m-1">Heading: {userLoc.heading}</p>
+        <p className="m-1">Altitude: {userLoc.altitude}</p>
+
         <button className="m-1" onClick={handleMap}>
           Map {style + 1}/4
         </button>
