@@ -216,10 +216,10 @@ function App() {
           borderRadius: "0.5em",
         }}
       >
-        <p className="m-1">Accuracy: {userLoc.accuracy}</p>
-        <p className="m-1">Speed: {userLoc.speed}</p>
-        <p className="m-1">Heading: {userLoc.heading}</p>
-        <p className="m-1">Altitude: {userLoc.altitude}</p>
+        <p className="m-1 ">Accuracy: {userLoc.accuracy}</p>
+        <p className="m-1 ">Speed: {userLoc.speed}</p>
+        <p className="m-1 ">Heading: {userLoc.heading}</p>
+        <p className="m-1 ">Altitude: {userLoc.altitude}</p>
 
         <button className="m-1" onClick={handleMap}>
           Map {style + 1}/4
